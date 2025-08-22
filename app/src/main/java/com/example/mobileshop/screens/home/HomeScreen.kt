@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,15 +16,28 @@ import androidx.compose.ui.unit.dp
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(){
 
     Scaffold(
-        topBar = { MyTopAppBar() },
+        topBar = {MyTopAppBar()},
         bottomBar = { BottomNavigationBar() }
     ) {
-        Text(text = "Demo")
+        paddingValues ->
+
+        Column(modifier = Modifier.fillMaxSize().padding(paddingValues)) {
+
+            val searchQuery = remember { mutableStateOf("") }
+            val focusManager = LocalFocusManager.current
+            SearchBar(
+                query = searchQuery.value,
+                onQueryChange = { searchQuery.value = it },
+                onSearch = {/* To Do */},
+                modifier = Modifier.fillMaxWidth().padding(16.dp)
+            )
+
+        }
 
 
     }
-}
 
+}
